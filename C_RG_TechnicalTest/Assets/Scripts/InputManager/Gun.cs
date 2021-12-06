@@ -31,8 +31,6 @@ public class Gun : MonoBehaviour
         float sin_elev = Mathf.Sin(-Mathf.PI/36);
         float cos_elev = Mathf.Cos(-Mathf.PI/36);
 
-        Debug.Log(sin);
-
         rb.velocity = new Vector3(cos_elev*sin*50, -50*sin_elev, cos_elev*cos*50);
         
     }
