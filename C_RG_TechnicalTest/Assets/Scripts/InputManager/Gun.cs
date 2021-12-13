@@ -17,10 +17,11 @@ public class Gun : MonoBehaviour
         
     }
 
-    public void fire()
+    public void fire(Material material)
     {
         Vector3 pos = transform.position;
         GameObject new_bullet = Instantiate(bullet_prefab, pos, Quaternion.identity);
+        new_bullet.GetComponent<Bullet>().material = material;
         Rigidbody rb = new_bullet.GetComponent<Rigidbody>();
 
         float theta = transform.rotation.eulerAngles.y*Mathf.PI / 180;

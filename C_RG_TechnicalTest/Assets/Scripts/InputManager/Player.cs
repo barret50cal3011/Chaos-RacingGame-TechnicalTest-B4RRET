@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Material red;
+    public Material blue;
+    public Material green;
+
     public float rotation_speed = 720f;
     public float walking_speed = 10f;
     public GameObject gun;
-    
+    public Queue<Material> materials;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        materials = new Queue<Material>();
     }
 
     // Update is called once per frame
@@ -51,6 +56,24 @@ public class Player : MonoBehaviour
             v.x += -1;
         }
 
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            add_material(red);
+            Debug.Log("Add red");
+        }
+
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            add_material(blue);
+            Debug.Log("Add blue");
+        }
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            add_material(green);
+            Debug.Log("Add green");
+        }
+
         if(v.magnitude != 0)
         {
             v.x *= walking_speed*Time.deltaTime/v.magnitude;
@@ -67,7 +90,15 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             Gun script = gun.GetComponent<Gun>();
-            script.fire();
+            if(materials.Count != 0)
+                script.fire(materials.Dequeue());
+            else 
+                Debug.Log("Out of amo.");
         }
+    }
+
+    void add_material(Material new_material)
+    {
+        materials.Enqueue(new_material);
     }
 }
